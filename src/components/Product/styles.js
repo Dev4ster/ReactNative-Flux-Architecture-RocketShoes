@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import colors, {product} from '../../styles/colors';
 
 export const ProductItem = styled.View`
-  background: #fff;
+  background: ${product.background};
   height: 358px;
   width: 220px;
   margin-right: 10px;

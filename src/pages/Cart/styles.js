@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import {RectButton} from 'react-native-gesture-handler';
+import {FlatList} from 'react-native';
 import {cart} from '../../styles/colors';
 
 export const Container = styled.View`
@@ -21,24 +22,30 @@ export const CartTotal = styled.View`
   align-items: center;
 `;
 export const Total = styled.Text`
-  color: #999999;
+  color: ${cart.totalLabel};
   font-size: 16px;
   font-weight: bold;
 `;
 export const TotalCurrency = styled.Text`
   font-size: 30px;
-  color: #000;
+  color: ${cart.totalCurrency};
   font-weight: bold;
 `;
 export const Finish = styled(RectButton)`
-  background: #7159c1;
+  background: ${cart.button.background};
   border-radius: 4px;
   padding: 20px;
-  flex: 1;
+
   justify-content: center;
   align-items: center;
 `;
 export const TextFinish = styled.Text`
-  color: #fff;
+  color: ${cart.button.color};
   font-size: 14px;
+`;
+
+export const CartList = styled(FlatList).attrs({
+  scrollEnabled: props => props.loaded,
+})`
+  opacity: ${props => (props.loaded ? 1 : 0.5)};
 `;

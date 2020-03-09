@@ -1,6 +1,8 @@
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import {cartItem} from '../../styles/colors';
+
 export const Product = styled.View`
   flex-direction: row;
   align-items: center;
@@ -24,12 +26,12 @@ export const Title = styled.Text`
 
 export const Price = styled.Text`
   font-size: 16px;
-  color: #000;
+  color: ${cartItem.price};
   font-weight: bold;
 `;
 
 export const Actions = styled.View`
-  background: #eeeeee;
+  background: ${cartItem.actions.background};
   flex-direction: row;
   justify-content: space-between;
   flex-basis: 100%;
@@ -41,21 +43,21 @@ export const UpdateAmount = styled.View`
   align-items: center;
 `;
 export const RemoveOne = styled(Icon)`
-  color: #7159c1;
+  color: ${cartItem.actions.icons};
 `;
 export const Counter = styled.TextInput`
   height: 26px;
   width: 51px;
-  background: #fff;
+  background: ${cartItem.actions.inputCounter};
   margin: 0 2px;
   font-size: 14px;
   padding: 5px;
 `;
 export const AddOne = styled(Icon)`
-  color: #7159c1;
+  color: ${cartItem.actions.icons};
 `;
 export const SubTotal = styled.Text`
   font-size: 16px;
-  color: #000;
+  color: ${cartItem.subTotal};
   font-weight: bold;
 `;
