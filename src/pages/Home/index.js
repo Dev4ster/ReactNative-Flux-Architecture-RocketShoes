@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
 import {FlatList, ScrollView} from 'react-native';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import Product from '../../components/Product';
+import * as cartActions from '../../store/modules/cart/actions';
 // import ProductVisited from '../../components/ProductVisited';
 import api from '../../services/api';
 import {Container, ProductContainer} from './styles';
 
 import formatPrice from '../../util/format';
 
-export default class Home extends Component {
+class Home extends Component {
   state = {
     products: [],
   };
@@ -23,8 +26,14 @@ export default class Home extends Component {
     });
   }
 
+  handleAddProduct = product => {
+    const {addToCart} = this.props;
+    addToCart(product);
+  };
+
   render() {
     const {products} = this.state;
+    const {amount} = this.props;
     return (
       <Container>
         <ScrollView>
@@ -39,7 +48,11 @@ export default class Home extends Component {
                 <Product
                   title={item.title}
                   image={item.image}
+                  amount={amount[item.id]}
                   priceFormated={item.priceFormated}
+                  onAddCart={() => {
+                    this.handleAddProduct(item);
+                  }}
                 />
               )}
             />
@@ -64,3 +77,17 @@ export default class Home extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(cartActions, dispatch);
+
+const mapStateToProps = state => ({
+  amount: state.cart.reduce((amount, product) => {
+    amount[product.id] = product.amount;
+    return amount;
+  }, {}),
+});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);

@@ -1,10 +1,12 @@
 import Reactotron from 'reactotron-react-native';
+import {reactotronRedux} from 'reactotron-redux';
 
 if (__DEV__) {
   const tron = Reactotron.configure({
-    host: '192.168.1.50', // ip caso for usar modo usb
+    host: '192.168.15.12', // ip caso for usar modo usb
   })
     .useReactNative()
+    .use(reactotronRedux())
     .connect();
 
   console.tron = tron;

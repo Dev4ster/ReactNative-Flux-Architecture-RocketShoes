@@ -19,7 +19,9 @@ export const ProductDetails = styled.View`
   flex: 1;
 `;
 
-export const Title = styled.Text`
+export const Title = styled.Text.attrs({
+  numberOfLines: 1,
+})`
   font-size: 14px;
   margin-bottom: 10px;
 `;
@@ -56,6 +58,12 @@ export const Counter = styled.TextInput`
 export const AddOne = styled(Icon)`
   color: ${cartItem.actions.icons};
 `;
+
+export const Delete = styled(Icon)`
+  color: ${cartItem.actions.icons};
+  margin: 0 10px;
+`;
+
 export const SubTotal = styled.Text`
   font-size: 16px;
   color: ${cartItem.subTotal};

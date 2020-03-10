@@ -12,7 +12,13 @@ import {
   IconCart,
 } from './styles';
 
-export default function Product({title, image, priceFormated}) {
+export default function Product({
+  title,
+  image,
+  priceFormated,
+  onAddCart,
+  amount,
+}) {
   return (
     <ProductItem>
       <ProductImage source={{uri: image}} />
@@ -21,9 +27,9 @@ export default function Product({title, image, priceFormated}) {
       <ButtonAddCart>
         <Count>
           <IconCart name="shopping-basket" />
-          <TextCount>1</TextCount>
+          <TextCount>{amount || 0}</TextCount>
         </Count>
-        <TextButton>ADICIONAR</TextButton>
+        <TextButton onPress={onAddCart}>ADICIONAR</TextButton>
       </ButtonAddCart>
     </ProductItem>
   );

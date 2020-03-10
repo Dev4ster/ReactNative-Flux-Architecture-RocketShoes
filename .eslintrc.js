@@ -36,5 +36,7 @@ module.exports = {
     "react/prop-types": 'off',
     "react/forbid-prop-types": 'off',
     "react/static-property-placement": 'off',
+    "no-console": ['error', { allow: ["tron"] }],
+    "no-param-reassign":'off',
   },
 };

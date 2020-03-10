@@ -7,7 +7,7 @@ export const Container = styled.View`
   flex-direction: row;
   flex: 1;
   justify-content: space-between;
-  padding: 20px;
+  padding: 20px 0 20px 20px;
 `;
 
 export const CartView = styled.View`
@@ -44,8 +44,4 @@ export const TextFinish = styled.Text`
   font-size: 14px;
 `;
 
-export const CartList = styled(FlatList).attrs({
-  scrollEnabled: props => props.loaded,
-})`
-  opacity: ${props => (props.loaded ? 1 : 0.5)};
-`;
+export const CartList = styled(FlatList)``;

@@ -13,9 +13,19 @@ import {
   Counter,
   AddOne,
   SubTotal,
+  Delete,
 } from './styles';
 
-export default function ItemCart({title, image, priceFormated}) {
+export default function ItemCart({
+  title,
+  image,
+  priceFormated,
+  amount,
+  subtotal,
+  onDelete,
+  onDecrement,
+  onIncrement,
+}) {
   return (
     <Product>
       <Image source={{uri: image}} />
@@ -23,9 +33,13 @@ export default function ItemCart({title, image, priceFormated}) {
         <Title>{title}</Title>
         <Price>{priceFormated}</Price>
       </ProductDetails>
+      <TouchableOpacity onPress={onDelete}>
+        <Delete name="delete-forever" size={22} />
+      </TouchableOpacity>
+
       <Actions>
         <UpdateAmount>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={onDecrement}>
             <RemoveOne name="remove-circle-outline" size={20} />
           </TouchableOpacity>
 
@@ -34,13 +48,13 @@ export default function ItemCart({title, image, priceFormated}) {
             textContentType="telephoneNumber"
             enablesReturnKeyAutomatically
             autoCorrect={false}
-            value="3"
+            value={String(amount)}
           />
-          <TouchableOpacity>
+          <TouchableOpacity onPress={onIncrement}>
             <AddOne name="add-circle-outline" size={20} />
           </TouchableOpacity>
         </UpdateAmount>
-        <SubTotal>R$539,70</SubTotal>
+        <SubTotal>{subtotal}</SubTotal>
       </Actions>
     </Product>
   );

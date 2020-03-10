@@ -1,11 +1,12 @@
 import React from 'react';
-import {TouchableOpacity, Text} from 'react-native';
+import {TouchableOpacity} from 'react-native';
+import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as RootNavigation from '../../RootNavigation';
 
 import {Wrapper, Container, Logo, ItemCount, Victor} from './styles';
 
-export default function Header() {
+function Header({cartSize}) {
   return (
     <Wrapper>
       <Container>
@@ -18,9 +19,13 @@ export default function Header() {
         </TouchableOpacity>
         <TouchableOpacity onPress={() => RootNavigation.navigate('Cart')}>
           <Icon name="shopping-basket" color="#FFF" size={24} />
-          <ItemCount>{1 || 0}</ItemCount>
+          <ItemCount>{cartSize || 0}</ItemCount>
         </TouchableOpacity>
       </Container>
     </Wrapper>
   );
 }
+
+export default connect(state => ({
+  cartSize: state.cart.length,
+}))(Header);

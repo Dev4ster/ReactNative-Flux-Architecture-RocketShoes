@@ -4,7 +4,7 @@ export const Container = styled.View`
   flex-direction: column;
   flex: 1;
   justify-content: space-between;
-  padding: 20px;
+  padding: 20px 0px 20px 20px;
 `;
 
 export const ProductContainer = styled.View`
