@@ -21,12 +21,12 @@ class Cart extends Component {
     removeFromCart(id);
   };
 
-  handleIncrement = (product, {updateAmount} = this.props) => {
-    updateAmount(product.id, product.amount + 1);
+  handleIncrement = (product, {updateAmountRequest} = this.props) => {
+    updateAmountRequest(product.id, product.amount + 1);
   };
 
-  handleDecrement = (product, {updateAmount} = this.props) => {
-    updateAmount(product.id, product.amount - 1);
+  handleDecrement = (product, {updateAmountRequest} = this.props) => {
+    updateAmountRequest(product.id, product.amount - 1);
   };
 
   render() {

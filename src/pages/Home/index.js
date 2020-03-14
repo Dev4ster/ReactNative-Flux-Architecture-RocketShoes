@@ -26,9 +26,9 @@ class Home extends Component {
     });
   }
 
-  handleAddProduct = product => {
-    const {addToCart} = this.props;
-    addToCart(product);
+  handleAddProduct = id => {
+    const {addToCartRequest} = this.props;
+    addToCartRequest(id);
   };
 
   render() {
@@ -51,7 +51,7 @@ class Home extends Component {
                   amount={amount[item.id]}
                   priceFormated={item.priceFormated}
                   onAddCart={() => {
-                    this.handleAddProduct(item);
+                    this.handleAddProduct(item.id);
                   }}
                 />
               )}
