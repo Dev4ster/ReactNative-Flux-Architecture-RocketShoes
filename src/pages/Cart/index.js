@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import priceFormated from '../../util/format';
 import * as cartActions from '../../store/modules/cart/actions';
 import ItemCart from '../../components/ItemCart';
@@ -15,73 +14,66 @@ import {
   CartList,
 } from './styles';
 
-class Cart extends Component {
-  handleDelete = id => {
-    const {removeFromCart} = this.props;
-    removeFromCart(id);
-  };
+export default function Cart() {
+  const dispatch = useDispatch();
 
-  handleIncrement = (product, {updateAmountRequest} = this.props) => {
-    updateAmountRequest(product.id, product.amount + 1);
-  };
+  const cart = useSelector(state =>
+    state.cart.map(product => ({
+      ...product,
+      subtotal: priceFormated(product.price * product.amount),
+    }))
+  );
 
-  handleDecrement = (product, {updateAmountRequest} = this.props) => {
-    updateAmountRequest(product.id, product.amount - 1);
-  };
-
-  render() {
-    const {cart, total} = this.props;
-    return (
-      <Container>
-        <CartView>
-          <CartList
-            data={cart}
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={item => String(item.id)}
-            renderItem={({item}) => (
-              <ItemCart
-                title={item.title}
-                image={item.image}
-                priceFormated={item.priceFormated}
-                amount={item.amount}
-                subtotal={item.subtotal}
-                onDelete={() => this.handleDelete(item.id)}
-                onIncrement={() => this.handleIncrement(item)}
-                onDecrement={() => this.handleDecrement(item)}
-              />
-            )}
-          />
-
-          <CartTotal>
-            <Total>Total</Total>
-            <TotalCurrency>{total}</TotalCurrency>
-          </CartTotal>
-          <Finish>
-            <TextFinish>FINALIZAR PEDIDO</TextFinish>
-          </Finish>
-        </CartView>
-      </Container>
-    );
-  }
-}
-
-const mapStateToProps = state => ({
-  cart: state.cart.map(product => ({
-    ...product,
-    subtotal: priceFormated(product.price * product.amount),
-  })),
-  total: priceFormated(
-    state.cart.reduce(
-      (total, product) => total + product.price * product.amount,
-      0
+  const total = useSelector(state =>
+    priceFormated(
+      state.cart.reduce(
+        (totalAll, product) => totalAll + product.price * product.amount,
+        0
+      )
     )
-  ),
-});
+  );
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(cartActions, dispatch);
+  function handleDelete(id) {
+    dispatch(cartActions.removeFromCart(id));
+  }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Cart);
+  function handleIncrement(product) {
+    dispatch(cartActions.updateAmountRequest(product.id, product.amount + 1));
+  }
+
+  function handleDecrement(product) {
+    dispatch(cartActions.updateAmountRequest(product.id, product.amount - 1));
+  }
+
+  return (
+    <Container>
+      <CartView>
+        <CartList
+          data={cart}
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={item => String(item.id)}
+          renderItem={({item}) => (
+            <ItemCart
+              title={item.title}
+              image={item.image}
+              priceFormated={item.priceFormated}
+              amount={item.amount}
+              subtotal={item.subtotal}
+              onDelete={() => handleDelete(item.id)}
+              onIncrement={() => handleIncrement(item)}
+              onDecrement={() => handleDecrement(item)}
+            />
+          )}
+        />
+
+        <CartTotal>
+          <Total>Total</Total>
+          <TotalCurrency>{total}</TotalCurrency>
+        </CartTotal>
+        <Finish>
+          <TextFinish>FINALIZAR PEDIDO</TextFinish>
+        </Finish>
+      </CartView>
+    </Container>
+  );
+}

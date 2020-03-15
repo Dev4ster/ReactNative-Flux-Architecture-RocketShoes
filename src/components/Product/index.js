@@ -24,12 +24,12 @@ export default function Product({
       <ProductImage source={{uri: image}} />
       <Title numberOfLines={2}>{title}</Title>
       <Price> {priceFormated}</Price>
-      <ButtonAddCart>
+      <ButtonAddCart onPress={onAddCart}>
         <Count>
           <IconCart name="shopping-basket" />
           <TextCount>{amount || 0}</TextCount>
         </Count>
-        <TextButton onPress={onAddCart}>ADICIONAR</TextButton>
+        <TextButton>ADICIONAR</TextButton>
       </ButtonAddCart>
     </ProductItem>
   );

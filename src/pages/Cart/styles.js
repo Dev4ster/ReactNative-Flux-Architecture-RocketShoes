@@ -7,7 +7,7 @@ export const Container = styled.View`
   flex-direction: row;
   flex: 1;
   justify-content: space-between;
-  padding: 20px 0 20px 20px;
+  padding: 20px 20px 20px 20px;
 `;
 
 export const CartView = styled.View`
